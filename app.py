@@ -1,16 +1,18 @@
 # app.py
 from flask import Flask, jsonify, request
-from flask import Flask
-
-
 from config import  Base, Session, engine
-
 from modelos.pedidos import Pedido, PedidoProducto
 from modelos.producto import Producto
 
 Base.metadata.create_all(engine)
 session = Session()
 app = Flask(__name__)
+
+@app.route("/")
+def index():
+
+    return jsonify({"message": "Server up"}), 200
+
 
 
 @app.route("/productos", methods=["GET"])
@@ -78,5 +80,5 @@ def procesar_pedido():
     return resultado
 
 if __name__ == "__main__":
-    Base.metadata.create_all(engine)
+
     app.run(host="0.0.0.0", port=5000)
